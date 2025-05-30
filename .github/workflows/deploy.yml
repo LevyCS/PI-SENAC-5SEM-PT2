@@ -4,9 +4,6 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,37 +21,20 @@ jobs:
         run: npm install
         working-directory: ./Frontend
 
-      - name: Build do projeto (gera /docs na raiz)
+      - name: Build do projeto (output em docs/)
         run: npm run build
         working-directory: ./Frontend
 
-      - name: Copiar build da pasta docs e fazer push na branch deploy
+      - name: Copiar /docs para uma branch separada
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-
-          if [ ! -d docs ] || [ -z "$(ls -A docs)" ]; then
-            echo "📂 Pasta 'docs/' está vazia. Nada para deploy."
-            exit 0
-          fi
-
-          mkdir temp-deploy
-          cp -r docs/. temp-deploy/  # <- copia tudo, inclusive ocultos
-
           git fetch
           git switch --orphan deploy
           git rm -rf .
-          cp -r temp-deploy/. .
-          rm -rf temp-deploy
-
+          mv docs/* .
+          rm -rf docs
           touch .nojekyll
-          git add -A
-
-          if git diff --cached --quiet; then
-            echo '⚠️ Nenhuma mudança para commit.'
-            exit 0
-          fi
-
+          git add .
           git commit -m "Deploy automático para GitHub Pages"
           git push --force origin deploy
-
