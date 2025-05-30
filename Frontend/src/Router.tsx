@@ -6,7 +6,7 @@ import RegistroForm from "./pages/RegistroForm";
 import Register from "./pages/auth/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import LandingPage from "./pages/LandingPage";
-import AuthRoute from "./components/authRoute"; // Fixed casing issue
+import AuthRoute from "./components/AuthRoute"; // Fixed casing issue
 
 export function Router() {
   return (
