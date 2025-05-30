@@ -5,6 +5,8 @@ import {Router} from './Router.tsx'
 import '../styles/global.css'
 import { ToastContainer } from 'react-toastify';
 
+console.log(import.meta.env.BASE_URL)
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
