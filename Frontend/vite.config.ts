@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/PI-SENAC-5SEM-PT2/',
   plugins: [
     react(),
     tailwindcss()
