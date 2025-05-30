@@ -3,7 +3,7 @@ name: Deploy para GitHub Pages
 on:
   push:
     branches:
-      - main  # ou a branch principal do seu projeto
+      - main
 
 permissions:
   contents: write
@@ -21,14 +21,13 @@ jobs:
         with:
           node-version: 18
 
-      - name: Entrar no Frontend
-        run: cd Frontend
-
       - name: Instalar dependências
         run: npm install
+        working-directory: ./Frontend
 
       - name: Build do projeto
         run: npm run build
+        working-directory: ./Frontend
 
       - name: Deploy para GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
