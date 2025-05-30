@@ -1,4 +1,4 @@
-name: Build e Deploy para GitHub Pages
+name: Build e Deploy para GitHub Pages (branch deploy)
 
 on:
   push:
@@ -17,18 +17,24 @@ jobs:
         with:
           node-version: 18
 
-      - name: Instalar dependências do Frontend
+      - name: Instalar dependências do frontend
         run: npm install
         working-directory: ./Frontend
 
-      - name: Build do projeto para /docs
+      - name: Build do projeto (output em docs/)
         run: npm run build
         working-directory: ./Frontend
 
-      - name: Commit do /docs atualizado
+      - name: Copiar /docs para uma branch separada
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add docs
-          git commit -m "Atualiza build em /docs" || echo "Nada para commitar"
-          git push
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git fetch
+          git switch --orphan deploy
+          git rm -rf .
+          mv docs/* .
+          rm -rf docs
+          touch .nojekyll
+          git add .
+          git commit -m "Deploy automático para GitHub Pages"
+          git push --force origin deploy
