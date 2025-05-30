@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Entrar no Frontend
+        run: cd Frontend
+
       - name: Instalar dependências
         run: npm install
 
