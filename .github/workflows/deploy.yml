@@ -33,16 +33,28 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
+          if [ ! -d docs ] || [ -z "$(ls -A docs)" ]; then
+            echo "📂 Pasta 'docs/' está vazia. Nada para deploy."
+            exit 0
+          fi
+
           mkdir temp-deploy
-          cp -r docs/* temp-deploy/ || echo "docs vazia"
+          cp -r docs/. temp-deploy/  # <- copia tudo, inclusive ocultos
 
           git fetch
           git switch --orphan deploy
           git rm -rf .
-          cp -r temp-deploy/* .
+          cp -r temp-deploy/. .
           rm -rf temp-deploy
 
           touch .nojekyll
-          git add .
-          git commit -m "Deploy automático para GitHub Pages" || echo "Nada para commitar"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo '⚠️ Nenhuma mudança para commit.'
+            exit 0
+          fi
+
+          git commit -m "Deploy automático para GitHub Pages"
           git push --force origin deploy
+
