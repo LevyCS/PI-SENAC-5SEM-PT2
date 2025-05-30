@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,25 +24,25 @@ jobs:
         run: npm install
         working-directory: ./Frontend
 
-      - name: Build do projeto (output em docs/)
+      - name: Build do projeto (gera /docs na raiz)
         run: npm run build
         working-directory: ./Frontend
 
-    - name: Copiar build da pasta docs/ e fazer push na branch deploy
-      run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
+      - name: Copiar build da pasta docs e fazer push na branch deploy
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
-        mkdir temp-deploy
-        cp -r docs/* temp-deploy/ || echo "docs vazia"
+          mkdir temp-deploy
+          cp -r docs/* temp-deploy/ || echo "docs vazia"
 
-        git fetch
-        git switch --orphan deploy
-        git rm -rf .
-        cp -r temp-deploy/* .
-        rm -rf temp-deploy
+          git fetch
+          git switch --orphan deploy
+          git rm -rf .
+          cp -r temp-deploy/* .
+          rm -rf temp-deploy
 
-        touch .nojekyll
-        git add .
-        git commit -m "Deploy automático para GitHub Pages" || echo "Nada para commitar"
-        git push --force origin deploy
+          touch .nojekyll
+          git add .
+          git commit -m "Deploy automático para GitHub Pages" || echo "Nada para commitar"
+          git push --force origin deploy
