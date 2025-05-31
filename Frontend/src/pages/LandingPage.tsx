@@ -1,14 +1,13 @@
-import { useNavigate } from "react-router-dom";
+
 
 export default function LandingPage() {
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <header className="p-6 flex justify-between items-center max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold text-green-600">HealCon</h1>
         <button
-          onClick={() => navigate("/cadastrar")}
+          // onClick={() => navigate("/cadastrar")}
           className="bg-green-500 text-white px-6 py-2 rounded-xl hover:bg-green-600"
         >
           Criar Conta
@@ -26,7 +25,7 @@ export default function LandingPage() {
             receitas disponíveis sempre que precisar.
           </p>
           <button
-            onClick={() => navigate("/cadastrar")}
+            // onClick={() => navigate("/cadastrar")}
             className="bg-green-500 text-white text-lg px-8 py-3 rounded-xl hover:bg-green-600"
           >
             Comece Agora
@@ -71,7 +70,7 @@ export default function LandingPage() {
             Crie sua conta e comece a usar agora mesmo sem custo inicial.
           </p>
           <button
-            onClick={() => navigate("/cadastrar")}
+            // onClick={() => navigate("/cadastrar")}
             className="bg-green-500 text-white px-8 py-3 rounded-xl hover:bg-green-600"
           >
             Criar Conta Gratuita

@@ -33,5 +33,5 @@ model Files {
   id                String   @id @default(cuid())
   filename          String
   consultationId    String
-  consultation      Consultation @relation(fields: [consultationId], references: [id])
+  consultation      Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
 }

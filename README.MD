@@ -5,8 +5,8 @@ HealCon é uma aplicação web moderna desenvolvida com foco em organizar o hist
 ---
 
 ## Landing Page
-A Landing Page se encontra disponível gh-pages
-Ou através da URL: https://levycs.github.io/PI-SENAC-5SEM-PT2/
+A Landing Page é uma página do "Frontend" feito em react.
+Ela está disponível através da URL: https://levycs.github.io/PI-SENAC-5SEM-PT2/
 
 ## 🚀 Funcionalidades
 

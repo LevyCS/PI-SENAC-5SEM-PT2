@@ -37,7 +37,7 @@ export default function Cadastro() {
         password: data.senha,
       });
       toast.info("Usuário cadastrado com sucesso!");
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       toast.error("Erro ao cadastrar.");
     } finally {
